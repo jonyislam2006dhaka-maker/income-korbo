@@ -129,7 +129,7 @@
                 <div class="p-5 rounded-2xl flex items-center justify-between text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg">
                     <div>
                         <p class="text-gray-200 text-sm font-medium">Your Balance</p>
-                        <p class="text-3xl font-bold font-heading"><span id="coin-balance">0</span> Coins</p>
+                        <p class="text-3xl font-bold font-heading"><span id="coin-balance">0</span> BDT</p>
                     </div>
                     <button id="home-withdraw-btn" class="bg-white text-purple-600 font-bold px-6 py-2 rounded-full text-sm">Withdraw</button>
                 </div>
@@ -138,7 +138,7 @@
                     <h2 class="text-xl font-heading font-bold mb-4">Complete Your Tasks</h2>
                     <div id="view-100-tasks-btn" class="card-bg p-5 rounded-lg flex items-center justify-between cursor-pointer transition-transform transform hover:scale-105">
                         <div class="flex items-center space-x-4">
-                            <span class="text-4xl">🚀</span>
+                            <span class="text-4xl"></span>
                             <div>
                                 <h3 class="text-lg font-bold font-heading">View 100 Tasks</h3>
                                 <p class="text-sm text-gray-400">Click to view all available tasks</p>
@@ -156,7 +156,7 @@
                                 <i data-lucide="send" class="w-8 h-8 text-blue-400"></i>
                                 <div>
                                     <h3 class="text-lg font-bold font-heading">Daily Updates</h3>
-                                    <p class="text-sm text-gray-400">Join Telegram & get 100 Coins!</p>
+                                    <p class="text-sm text-gray-400">Join Telegram & get 10 Taka!</p>
                                 </div>
                             </div>
                             <i data-lucide="arrow-right" class="w-6 h-6 text-gray-500"></i>
@@ -200,10 +200,10 @@
                 <h2 class="text-xl font-bold text-center font-heading">My Wallet</h2>
                 <div class="card-bg p-4 rounded-lg">
                     <h3 class="font-semibold mb-3 font-heading">Withdraw Earnings</h3>
-                    <p class="text-sm text-gray-400 mb-1">Current Balance: <span class="font-bold text-accent"><span id="wallet-coin-balance">0</span> Coins</span></p>
-                    <p class="text-sm text-gray-400 mb-2">Minimum Withdrawal: <span id="min-withdrawal-info">...</span> Coins</p>
-                    <p class="text-sm text-gray-400 mb-4 font-semibold" id="coin-value-info">...</p>
-                    <input id="withdraw-amount" type="number" placeholder="Enter coin amount" class="w-full p-3 rounded-lg input-field mb-3">
+                    <p class="text-sm text-gray-400 mb-1">Current Balance: <span class="font-bold text-accent"><span id="wallet-coin-balance">0</span> BDT</span></p>
+                    <p class="text-sm text-gray-400 mb-2">Minimum Withdrawal: <span id="min-withdrawal-info">... BDT</span></p>
+                    <p class="text-sm text-gray-400 mb-4 font-semibold" id="coin-value-info" style="display: none;">...</p>
+                    <input id="withdraw-amount" type="number" placeholder="Enter Taka amount" class="w-full p-3 rounded-lg input-field mb-3">
                     <select id="withdraw-method" class="w-full p-3 rounded-lg input-field mb-3"></select>
                     <div id="payment-details-container" class="mb-3"></div>
                     <button id="withdraw-btn" class="w-full p-3 rounded-lg btn-accent">Request Withdrawal</button>
@@ -281,29 +281,29 @@
     
     <div id="info-popup" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
         <div class="card-bg rounded-lg p-6 w-full max-w-sm shadow-lg max-h-[90vh] overflow-y-auto">
-            <h2 class="text-3xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4 text-center">কিভাবে কাজ করবেন?</h2>
+            <h2 class="text-3xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4 text-center">  ?</h2>
             <div class="text-left space-y-3 text-gray-300">
-                <p>ইনকাম করা খুবই সহজ! শুধু নিচের ধাপগুলো অনুসরণ করুন:</p>
+                <p>   !     :</p>
                 
-                <h3 class="text-lg font-heading text-accent mt-4">✅ যা যা করবেন:</h3>
+                <h3 class="text-lg font-heading text-accent mt-4">   :</h3>
                 <ul class="list-disc list-inside space-y-1">
-                    <li><strong class="font-bold text-green-400">View 100 Tasks</strong> বাটনে ক্লিক করুন।</li>
-                    <li>প্রতিদিন <strong>১০০টি টাস্ক</strong> সিরিয়াল অনুযায়ী (১, ২, ৩...) সম্পন্ন করুন।</li>
-                    <li>প্রতিটি টাস্কে ক্লিক করলে একটি অ্যাড আসবে। অ্যাডটি দেখুন।</li>
-                    <li>অ্যাড দেখা শেষ হলে <strong>৫০ কয়েন</strong> বোনাস পাবেন।</li>
-                    <li>টেলিগ্রাম গ্রুপে জয়েন করে <strong>১০০ কয়েন</strong> বোনাস নিন।</li>
+                    <li><strong class="font-bold text-green-400">View 100 Tasks</strong>   </li>
+                    <li> <strong> </strong>   (, , ...)  </li>
+                    <li>        </li>
+                    <li>    <strong> </strong>  </li>
+                    <li>    <strong> </strong>  </li>
                 </ul>
                 
-                <h3 class="text-lg font-heading text-red-400 mt-4">❌ যা যা করবেন না:</h3>
+                <h3 class="text-lg font-heading text-red-400 mt-4">    :</h3>
                 <ul class="list-disc list-inside space-y-1">
-                    <li><strong class="font-bold">ভুল ক্লিক:</strong> বার বার ভুল অ্যাডে ক্লিক করবেন না।</li>
-                    <li><strong class="font-bold">VPN:</strong> কোনো প্রকার VPN ব্যবহার করা যাবে না।</li>
-                    <li><strong class="font-bold">অটো-ক্লিকার:</strong> অ্যাপে কোনো অটো-ক্লিকার বা থার্ড-পার্টি স্ক্রিপ্ট ব্যবহার করলে অ্যাকাউন্ট ব্লক হয়ে যাবে।</li>
+                    <li><strong class="font-bold"> :</strong>       </li>
+                    <li><strong class="font-bold">VPN:</strong>   VPN    </li>
+                    <li><strong class="font-bold">-:</strong>   -  -       </li>
                 </ul>
                 
-                <p class="font-bold text-center text-yellow-300 pt-2">সৎভাবে কাজ করুন, প্রতিদিন পেমেন্ট নিন।</p>
+                <p class="font-bold text-center text-yellow-300 pt-2">  ,   </p>
             </div>
-            <button id="info-popup-close-btn" class="btn-accent px-8 py-2 rounded-lg mt-6 w-full font-heading">পপআপ বন্ধ করুন</button>
+            <button id="info-popup-close-btn" class="btn-accent px-8 py-2 rounded-lg mt-6 w-full font-heading">  </button>
         </div>
     </div>
 
@@ -333,6 +333,7 @@
 
         // --- Element Selectors ---
         const loader = document.getElementById('loader');
+        // NOTE: IDs are kept as "coin-balance" but will display "BDT"
         const coinBalanceEl = document.getElementById('coin-balance');
         const walletCoinBalanceEl = document.getElementById('wallet-coin-balance');
         const profileNameEl = document.getElementById('profile-name');
@@ -373,9 +374,7 @@
                 showMainPage('app-container');
                 navigateTo('home-page');
                 
-                // --- NEW: Show Info Popup ---
                 showInfoPopup();
-                // --- END NEW ---
                 
                 loader.style.display = 'none';
             } else {
@@ -397,7 +396,8 @@
                     const ownReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
                     const defaultUserData = {
                         uid: currentUser.uid, name: currentUser.displayName || currentUser.email.split('@')[0], email: currentUser.email,
-                        balance: 50, referralCode: ownReferralCode, referredBy: null,
+                        balance: 10, // MODIFIED: Default 10 Taka bonus instead of 50 coins
+                        referralCode: ownReferralCode, referredBy: null,
                         lastNotificationCheck: new Date(),
                         createdAt: serverTimestamp(),
                         dailyAdCount: 0, lastAdWatchDate: new Date().toISOString().split('T')[0], isBlocked: false,
@@ -416,12 +416,12 @@
             const configRef = doc(db, "config", "main");
             try {
                 const configSnap = await getDoc(configRef);
+                // MODIFIED: Default values changed to Taka system
                 appConfig = configSnap.exists() ? configSnap.data() : { 
-                    minWithdrawal: 5000, 
+                    minWithdrawal: 900, // MODIFIED
                     paymentMethods: ["bKash", "Nagad"], 
                     dailyAdLimit: 100,
-                    coinValueCoins: 100, 
-                    coinValueInr: 10 
+                    // coinValueCoins and coinValueInr are no longer used
                 };
             } catch (error) {
                 console.error("Error fetching app config:", error);
@@ -432,13 +432,17 @@
         function updateUI() {
             if (!userData) return;
             const balance = userData.balance || 0;
-            coinBalanceEl.textContent = balance;
-            walletCoinBalanceEl.textContent = balance;
+            // MODIFIED: Display BDT instead of Coins
+            coinBalanceEl.textContent = `${balance} BDT`;
+            walletCoinBalanceEl.textContent = `${balance} BDT`;
+            
             profileNameEl.textContent = userData.name || 'No Name';
             profileEmailEl.textContent = userData.email || 'No Email';
             referralCodeEl.textContent = userData.referralCode || '...';
-            minWithdrawalInfoEl.textContent = `${appConfig.minWithdrawal || 5000} Coins`;
-            coinValueInfoEl.textContent = `${appConfig.coinValueCoins || 100} Coins = ৳${appConfig.coinValueInr || 10}`;
+            // MODIFIED: Use new minWithdrawal default and show BDT
+            minWithdrawalInfoEl.textContent = `${appConfig.minWithdrawal || 900} BDT`;
+            // MODIFIED: Hide the coin value element as it's 1:1
+            coinValueInfoEl.style.display = 'none';
             
             withdrawMethodSelect.innerHTML = '';
             (appConfig.paymentMethods || ["bKash", "Nagad"]).forEach(method => {
@@ -536,14 +540,12 @@
                 navigateTo('task-list-page');
             });
             
-            // --- NEW: Info Popup Close Button ---
             document.getElementById('info-popup-close-btn').addEventListener('click', () => {
                 document.getElementById('info-popup').classList.add('hidden');
             });
-            // --- END NEW ---
         }
 
-        // --- Auth Handlers (Unchanged) ---
+        // --- Auth Handlers ---
         async function handleSignup() {
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;
@@ -558,7 +560,7 @@
                     email: email,
                     name: name, 
                     createdAt: serverTimestamp(),
-                    balance: 50, 
+                    balance: 10, // MODIFIED: Default 10 Taka bonus
                     referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(), 
                     referredBy: null,
                     lastNotificationCheck: new Date(),
@@ -626,7 +628,7 @@
             }
         }
         
-        // --- Wallet & Referrals (Mostly Unchanged) ---
+        // --- Wallet & Referrals ---
         async function loadWithdrawalHistory() {
             const historyList = document.getElementById('withdrawal-history-list');
             historyList.innerHTML = '<p class="text-gray-400">Loading history...</p>';
@@ -645,7 +647,8 @@
                     if (status === 'approved') statusColor = 'text-green-400';
                     else if (status === 'rejected') statusColor = 'text-red-400';
                     const date = request.requestedAt ? request.requestedAt.toDate().toLocaleDateString() : 'N/A';
-                    historyList.innerHTML += `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div><p class="font-semibold">${request.amount} Coins - ${request.method}</p><p class="text-xs text-gray-400">${date}</p></div><p class="font-bold ${statusColor} capitalize">${status}</p></div>`;
+                    // MODIFIED: Show BDT
+                    historyList.innerHTML += `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div><p class="font-semibold">${request.amount} BDT - ${request.method}</p><p class="text-xs text-gray-400">${date}</p></div><p class="font-bold ${statusColor} capitalize">${status}</p></div>`;
                 });
             } catch (error) {
                 console.error("Error fetching withdrawal history: ", error);
@@ -674,12 +677,16 @@
                     const referrerDoc = querySnapshot.docs[0];
                     const referrerRef = doc(db, "users", referrerDoc.id);
                     const referrerData = referrerDoc.data();
-                    await updateDoc(referrerRef, { balance: (referrerData.balance || 0) + 100 });
+                    // MODIFIED: Referrer bonus 30 Taka
+                    await updateDoc(referrerRef, { balance: (referrerData.balance || 0) + 30 });
                     const newUserRef = doc(db, "users", currentUser.uid);
-                    await updateDoc(newUserRef, { balance: (userData.balance || 0) + 100, referredBy: referrerCode });
-                    userData.balance += 100; userData.referredBy = referrerCode;
+                    // MODIFIED: New user bonus 30 Taka
+                    await updateDoc(newUserRef, { balance: (userData.balance || 0) + 30, referredBy: referrerCode });
+                    userData.balance += 30; // MODIFIED
+                    userData.referredBy = referrerCode;
                     updateUI();
-                    if(isManualApply) showAlert("Code applied successfully! You have received 100 coins.");
+                    // MODIFIED: Alert text
+                    if(isManualApply) showAlert("Code applied successfully! You have received 30 BDT.");
                 } else {
                     if(isManualApply) showAlert("Invalid referral code.");
                 }
@@ -703,10 +710,12 @@
             const method = document.getElementById('withdraw-method').value;
             const paymentDetailInput = document.getElementById('payment-detail-input');
             const paymentDetail = paymentDetailInput ? paymentDetailInput.value.trim() : '';
-            const minWithdrawal = appConfig.minWithdrawal || 5000;
+            // MODIFIED: Min withdrawal 900
+            const minWithdrawal = appConfig.minWithdrawal || 900;
 
             if (!amount || amount <= 0) return showAlert("Please enter a valid amount.");
-            if (amount < minWithdrawal) return showAlert(`Minimum withdrawal is ${minWithdrawal} coins.`);
+            // MODIFIED: Alert text
+            if (amount < minWithdrawal) return showAlert(`Minimum withdrawal is ${minWithdrawal} BDT.`);
             if (amount > userData.balance) return showAlert("Insufficient balance.");
             if (!paymentDetail) return showAlert(`Please enter your ${method} number.`);
 
@@ -760,12 +769,14 @@
             
             loader.style.display = 'flex';
             try {
-                await updateBalance(100);
+                // MODIFIED: Bonus 10 Taka
+                await updateBalance(10);
                 const userRef = doc(db, "users", currentUser.uid);
                 await updateDoc(userRef, { hasTelegramBonus: true });
                 userData.hasTelegramBonus = true;
                 
-                showAlert("Bonus of 100 coins added! Opening Telegram...");
+                // MODIFIED: Alert text
+                showAlert("Bonus of 10 BDT added! Opening Telegram...");
                 window.open(telegramLink, '_blank');
                 
             } catch (error) {
@@ -843,11 +854,13 @@
                 await updateDoc(userRef, { dailyAdCount: newCount });
                 userData.dailyAdCount = newCount;
                 
-                const rewardAmount = 50;
+                // MODIFIED: Reward 1 Taka
+                const rewardAmount = 1;
                 
                 if (rewardAmount > 0) {
                     await updateBalance(rewardAmount);
-                    showAlert(`Task #${taskNumber} Complete! You have won ${rewardAmount} coins.`);
+                    // MODIFIED: Alert text
+                    showAlert(`Task #${taskNumber} Complete! You have won ${rewardAmount} BDT.`);
                 }
                 
                 generateTaskGrid(); 
@@ -861,11 +874,9 @@
             }
         }
         
-        // --- NEW: Show Info Popup Function ---
         function showInfoPopup() {
             document.getElementById('info-popup').classList.remove('hidden');
         }
-        // --- END NEW ---
 
         // --- Custom Alert Function ---
         function showAlert(message) {
