@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>income Korbo</title>
+    
+    <script src='//libtl.com/sdk.js' data-zone='10108732' data-sdk='show_10108732'></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* [Existing CSS Styles remain here] */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #121212; 
+            color: #ffffff; 
+        }
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        .dark-bg { background-color: #121212; }
+        .card-bg { 
+            background-color: #1e1e1e; 
+            border-radius: 16px; /* More rounded */
+        }
+        .border-accent { border-color: #E040FB; } /* New Accent */
+        .text-accent { color: #E040FB; } /* New Accent */
+
+        .btn, .btn-accent, .btn-outline-accent { 
+            transition: all 0.2s ease-in-out; 
+            transform: scale(1);
+            border-radius: 12px; /* Rounded buttons */
+        }
+        .btn:active, .btn-accent:active, .btn-outline-accent:active { 
+            transform: scale(0.95); 
+        }
+        
+        /* New Gradient Button Style */
+        .btn-accent { 
+            background-image: linear-gradient(to right, #E040FB, #FF4081);
+            color: #ffffff; 
+            font-weight: bold;
+            border: none;
+        }
+        .btn-accent:hover { 
+            background-image: linear-gradient(to right, #d030e7, #e63070);
+        }
+        
+        .btn-outline-accent { 
+            border: 2px solid #E040FB; 
+            color: #E040FB;
+            background-color: transparent;
+        }
+        .btn-outline-accent:hover { 
+            background-color: #E040FB; 
+            color: #ffffff; 
+        }
+        
+        .input-field { 
+            background-color: #2c2c2c; 
+            border: 1px solid #444; 
+            border-radius: 12px; /* Rounded inputs */
+        }
+        
+        /* Page Transitions */
+        .main-page { display: none; }
+        .main-page.active { display: flex; animation: fadeIn 0.5s ease-in-out; }
+        .sub-page { display: none; }
+        .sub-page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        
+        /* Bottom Nav */
+        .bottom-nav {
+            background-color: #1e1e1e;
+            border-top: 1px solid #2a2a2a;
+        }
+        .bottom-nav a.active { color: #E040FB; } /* New Accent */
+        
+        /* Notification Dot */
+        .notification-dot {
+            position: absolute; top: -2px; right: -2px; width: 10px; height: 10px;
+            background-color: #ef4444; border-radius: 50%; border: 2px solid #1e1e1e; display: none;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="max-w-md mx-auto">
+
+    <div id="loader" class="hidden fixed inset-0 dark-bg bg-opacity-75 flex items-center justify-center z-50">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-accent"></div>
+    </div>
+
+    <div id="auth-section" class="min-h-screen p-6 flex-col justify-center main-page">
+        <h1 class="text-5xl font-extrabold text-center mb-2 font-heading text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">income Korbo</h1>
+        <p class="text-center text-gray-400 mb-8">Login or Signup to continue</p>
+        <div id="auth-container">
+            <div id="login-view">
+                <input id="login-email" type="email" placeholder="Email" class="w-full p-3 rounded-xl input-field mb-4">
+                <input id="login-password" type="password" placeholder="Password" class="w-full p-3 rounded-xl input-field mb-4">
+                <button id="login-btn" class="w-full p-3 rounded-xl btn-accent mb-4">Login</button>
+                <p class="text-center text-gray-400">Don't have an account? <a href="#" id="show-signup" class="font-semibold text-accent">Sign Up</a></p>
+            </div>
+            <div id="signup-view" class="hidden">
+                 <input id="signup-name" type="text" placeholder="Full Name" class="w-full p-3 rounded-xl input-field mb-4">
+                <input id="signup-email" type="email" placeholder="Email" class="w-full p-3 rounded-xl input-field mb-4">
+                <input id="signup-password" type="password" placeholder="Password" class="w-full p-3 rounded-xl input-field mb-4">
+                <button id="signup-btn" class="w-full p-3 rounded-xl btn-accent mb-4">Sign Up</button>
+                <p class="text-center text-gray-400">Already have an account? <a href="#" id="show-login" class="font-semibold text-accent">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="min-h-screen flex-col main-page">
+        <header class="flex items-center justify-between p-4 sticky top-0 bg-opacity-80 backdrop-blur-md z-10 dark-bg border-b border-gray-800">
+            <h1 class="text-xl font-bold font-heading">income Korbo</h1>
+            <div class="flex items-center space-x-4">
+                <div id="notification-bell" class="relative cursor-pointer">
+                    <i data-lucide="bell" class="w-6 h-6"></i>
+                    <div id="notification-dot" class="notification-dot"></div>
+                </div>
+                <i data-lucide="user-circle-2" class="w-6 h-6 cursor-pointer" onclick="navigateTo('profile-page')"></i>
+            </div>
+        </header>
+
+        <main class="flex-grow">
+            <div id="home-page" class="p-4 space-y-6 sub-page">
+                <div class="p-5 rounded-2xl flex items-center justify-between text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg">
+                    <div>
+                        <p class="text-gray-200 text-sm font-medium">Your Balance</p>
+                        <p class="text-3xl font-bold font-heading"><span id="coin-balance">0</span> BDT</p>
+                    </div>
+                    <button id="home-withdraw-btn" class="bg-white text-purple-600 font-bold px-6 py-2 rounded-full text-sm">Withdraw</button>
+                </div>
+                
+                <section>
+                    <h2 class="text-xl font-heading font-bold mb-4">Complete Your Tasks</h2>
+                    <div id="view-100-tasks-btn" class="card-bg p-5 rounded-lg flex items-center justify-between cursor-pointer transition-transform transform hover:scale-105">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-4xl">💰</span>
+                            <div>
+                                <h3 class="text-lg font-bold font-heading">View 100 Tasks</h3>
+                                <p class="text-sm text-gray-400">Click to view all available tasks</p>
+                            </div>
+                        </div>
+                        <i data-lucide="arrow-right-circle" class="w-8 h-8 text-gray-500"></i>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="text-xl font-heading font-bold mb-4">Community</h2>
+                    <div class="space-y-3">
+                        <div onclick="joinTelegramBonus()" class="card-bg p-4 rounded-lg flex items-center justify-between cursor-pointer transition-transform transform hover:scale-105">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="send" class="w-8 h-8 text-blue-400"></i>
+                                <div>
+                                    <h3 class="text-lg font-bold font-heading">Daily Updates</h3>
+                                    <p class="text-sm text-gray-400">Join Telegram & get 10 Taka!</p>
+                                </div>
+                            </div>
+                            <i data-lucide="arrow-right" class="w-6 h-6 text-gray-500"></i>
+                        </div>
+                        <a href="https://t.me/+VTrud33gaL4wZmQ1" target="_blank" class="card-bg p-4 rounded-lg flex items-center justify-between cursor-pointer transition-transform transform hover:scale-105">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="check-circle" class="w-8 h-8 text-green-400"></i>
+                                <div>
+                                    <h3 class="text-lg font-bold font-heading">Payment Proof</h3>
+                                    <p class="text-sm text-gray-400">See recent payments</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-5 h-5 text-gray-500"></i>
+                        </a>
+                        <a href="https://t.me/incomekorbo_support_bot" target="_blank" class="card-bg p-4 rounded-lg flex items-center justify-between cursor-pointer transition-transform transform hover:scale-105">
+                            <div class="flex items-center space-x-4">
+                                <i data-lucide="life-buoy" class="w-8 h-8 text-yellow-400"></i>
+                                <div>
+                                    <h3 class="text-lg font-bold font-heading">Support Admin</h3>
+                                    <p class="text-sm text-gray-400">Contact us for help</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-5 h-5 text-gray-500"></i>
+                        </a>
+                    </div>
+                </section>
+                
+            </div>
+
+            <div id="task-list-page" class="p-4 space-y-4 sub-page">
+                <header class="flex items-center mb-4">
+                    <i data-lucide="arrow-left" class="w-6 h-6 mr-3 cursor-pointer" onclick="navigateTo('home-page')"></i>
+                    <h2 class="text-xl font-bold font-heading">Complete Tasks</h2>
+                </header>
+                <p class="text-sm text-gray-400 text-center">You have <span id="tasks-left-count" class="font-bold text-accent">...</span> tasks left for today.</p>
+                <div id="task-grid" class="grid grid-cols-4 gap-3">
+                    </div>
+            </div>
+
+            <div id="wallet-page" class="p-4 space-y-6 sub-page">
+                <h2 class="text-xl font-bold text-center font-heading">My Wallet</h2>
+                <div class="card-bg p-4 rounded-lg">
+                    <h3 class="font-semibold mb-3 font-heading">Withdraw Earnings</h3>
+                    <p class="text-sm text-gray-400 mb-1">Current Balance: <span class="font-bold text-accent"><span id="wallet-coin-balance">0</span> BDT</span></p>
+                    <p class="text-sm text-gray-400 mb-2">Minimum Withdrawal: <span id="min-withdrawal-info">... BDT</span></p>
+                    <p class="text-sm text-gray-400 mb-4 font-semibold" id="coin-value-info" style="display: none;">...</p>
+                    <input id="withdraw-amount" type="number" placeholder="Enter Taka amount" class="w-full p-3 rounded-lg input-field mb-3">
+                    <select id="withdraw-method" class="w-full p-3 rounded-lg input-field mb-3"></select>
+                    <div id="payment-details-container" class="mb-3"></div>
+                    <button id="withdraw-btn" class="w-full p-3 rounded-lg btn-accent">Request Withdrawal</button>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 font-heading">Withdrawal History</h3>
+                    <div id="withdrawal-history-list" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <div id="refer-page" class="p-4 space-y-6 sub-page">
+                 <h2 class="text-xl font-bold text-center font-heading">Refer & Earn (রেফার করুন)</h2>
+                 
+                 <div class="card-bg p-6 rounded-lg text-center">
+                     <p class="text-gray-400 mb-2">Your Referral Link (আপনার রেফার লিংক)</p>
+                     <div class="bg-gray-800 p-3 rounded-lg flex items-center justify-between mb-4">
+                         <span id="referral-link-display" class="text-sm truncate">LOADING...</span>
+                         <button id="copy-link-btn" class="ml-4"><i data-lucide="copy" class="w-6 h-6 text-gray-400"></i></button>
+                     </div>
+                     <p class="text-sm text-gray-300">Share this link to get a bonus when they complete 12 ads.</p>
+                 </div>
+                 
+                 <button id="share-link-btn" class="w-full p-3 rounded-lg btn-accent">Share Your Link</button>
+                 
+                 <div class="card-bg p-4 rounded-lg mt-6">
+                    <h3 class="font-semibold mb-4 text-center font-heading">Referral Stats</h3>
+                    <div class="flex justify-around text-center mb-4">
+                        <div>
+                            <p class="text-gray-400 text-sm">Total Referrals</p>
+                            <p id="total-referrals" class="text-2xl font-bold text-accent">0</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 text-sm">Commission Earned</p>
+                            <p id="commission-earned-count" class="text-2xl font-bold text-green-400">0</p>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold border-b border-gray-700 pb-2 mb-2">Referred Users Progress</h4>
+                    <div id="referred-users-list" class="space-y-3 max-h-60 overflow-y-auto">
+                        <p class="text-center text-gray-500">No referrals found yet.</p>
+                    </div>
+                 </div>
+            </div>
+
+            <div id="profile-page" class="p-4 space-y-6 sub-page">
+                <h2 class="text-xl font-bold text-center mb-4 font-heading">Profile</h2>
+                <div class="flex flex-col items-center">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-3">
+                        <i data-lucide="user" class="w-12 h-12 text-white"></i>
+                    </div>
+                    <h2 id="profile-name" class="text-xl font-bold">User Name</h2>
+                    <p id="profile-email" class="text-gray-400">user@email.com</p>
+                </div>
+                <button id="logout-btn" class="w-full mt-6 p-3 rounded-lg bg-red-600 text-white font-bold">Logout</button>
+                
+                <div class="card-bg p-4 rounded-lg mt-6">
+                    <h3 class="font-semibold mb-3 font-heading text-center">Your Task Status</h3>
+                    <div class="flex justify-around text-center">
+                        <div>
+                            <p class="text-gray-400 text-sm">Completed</p>
+                            <p id="profile-tasks-completed" class="text-2xl font-bold text-green-400">0</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 text-sm">Remaining</p>
+                            <p id="profile-tasks-remaining" class="text-2xl font-bold text-yellow-400">100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="notifications-page" class="p-4 space-y-4 sub-page">
+                <h2 class="text-xl font-bold text-center font-heading">Notifications</h2>
+                <div id="notifications-list" class="space-y-3"></div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav sticky bottom-0 grid grid-cols-4 items-center text-center py-2">
+            <a href="#" class="nav-link" data-page="home-page"><i data-lucide="home" class="mx-auto w-6 h-6"></i><span class="text-xs">Home</span></a>
+            <a href="#" class="nav-link" data-page="wallet-page"><i data-lucide="wallet" class="mx-auto w-6 h-6"></i><span class="text-xs">Wallet</span></a>
+            <a href="#" class="nav-link" data-page="refer-page"><i data-lucide="users" class="mx-auto w-6 h-6"></i><span class="text-xs">Refer & Earn</span></a>
+            <a href="#" class="nav-link" data-page="profile-page"><i data-lucide="user-circle-2" class="mx-auto w-6 h-6"></i><span class="text-xs">Profile</span></a>
+        </nav>
+    </div>
+    
+    <div id="custom-alert" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-gray-800 rounded-lg p-6 w-full max-w-sm text-center shadow-lg">
+            <p id="alert-message" class="mb-4"></p>
+            <button id="alert-ok-btn" class="btn-accent px-8 py-2 rounded-lg">OK</button>
+        </div>
+    </div>
+    
+    <div id="info-popup" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+        <div class="card-bg rounded-lg p-6 w-full max-w-sm shadow-lg max-h-[90vh] overflow-y-auto">
+            <h2 class="text-3xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4 text-center">কিভাবে কাজ করবেন?</h2>
+            <div class="text-left space-y-3 text-gray-300">
+                <p>ইনকাম করা খুবই সহজ! শুধু নিচের ধাপগুলো অনুসরণ করুন:</p>
+                
+                <h3 class="text-lg font-heading text-accent mt-4">✅ যা যা করবেন:</h3>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong class="font-bold text-green-400">View 100 Tasks</strong> বাটনে ক্লিক করুন।</li>
+                    <li>প্রতিদিন <strong>১০০টি টাস্ক</strong> সিরিয়াল অনুযায়ী (১, ২, ৩...) সম্পন্ন করুন।</li>
+                    <li>প্রতিটি টাস্কে ক্লিক করলে একটি অ্যাড আসবে। অ্যাডটি দেখুন।</li>
+                    <li>অ্যাড দেখা শেষ হলে <strong>১ টাকা</strong> বোনাস পাবেন।</li>
+                    <li>টেলিগ্রাম গ্রুপে জয়েন করে <strong>১০ টাকা</strong> বোনাস নিন।</li>
+                </ul>
+                
+                <h3 class="text-lg font-heading text-red-400 mt-4">❌ যা যা করবেন না:</h3>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong class="font-bold">ভুল ক্লিক:</strong> বার বার ভুল অ্যাডে ক্লিক করবেন না।</li>
+                    <li><strong class="font-bold">VPN:</strong> কোনো প্রকার VPN ব্যবহার করা যাবে না।</li>
+                    <li><strong class="font-bold">অটো-ক্লিকার:</strong> অ্যাপে কোনো অটো-ক্লিকার বা থার্ড-পার্টি স্ক্রিপ্ট ব্যবহার করলে অ্যাকাউন্ট ব্লক হয়ে যাবে।</li>
+                </ul>
+                
+                <p class="font-bold text-center text-yellow-300 pt-2">সৎভাবে কাজ করুন, প্রতিদিন পেমেন্ট নিন।</p>
+            </div>
+            <button id="info-popup-close-btn" class="btn-accent px-8 py-2 rounded-lg mt-6 w-full font-heading">বুঝে নিলাম</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // --- Firebase Config (Unchanged) ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyCA5Exi9-ANXDM1Xjrsof-ldhg5WH5Gmj4",
+            authDomain: "income-korbo-2b29a.firebaseapp.com",
+            databaseURL: "https://income-korbo-2b29a-default-rtdb.firebaseio.com",
+            projectId: "income-korbo-2b29a",
+            storageBucket: "income-korbo-2b29a.firebasestorage.app",
+            messagingSenderId: "992765604561",
+            appId: "1:992765604561:web:bbfcc7ccd77071240f4bf0"
+        };
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let userData = null;
+        let appConfig = {};
+        
+        // Referral link variables
+        let referralLink = '';
+        const REFERRAL_MIN_TASKS = 12; // New minimum tasks for referral bonus
+        const REFERRAL_BONUS = 30; // 30 BDT bonus
+
+        // --- Element Selectors ---
+        const loader = document.getElementById('loader');
+        const coinBalanceEl = document.getElementById('coin-balance');
+        const walletCoinBalanceEl = document.getElementById('wallet-coin-balance');
+        const profileNameEl = document.getElementById('profile-name');
+        const profileEmailEl = document.getElementById('profile-email');
+        const minWithdrawalInfoEl = document.getElementById('min-withdrawal-info');
+        const withdrawMethodSelect = document.getElementById('withdraw-method');
+        const notificationDot = document.getElementById('notification-dot');
+        const paymentDetailsContainer = document.getElementById('payment-details-container');
+        const profileTasksCompletedEl = document.getElementById('profile-tasks-completed');
+        const profileTasksRemainingEl = document.getElementById('profile-tasks-remaining');
+        
+        // New referral elements
+        const referralLinkDisplayEl = document.getElementById('referral-link-display');
+        const totalReferralsEl = document.getElementById('total-referrals');
+        const commissionEarnedCountEl = document.getElementById('commission-earned-count');
+        const referredUsersListEl = document.getElementById('referred-users-list');
+
+        // --- Utility: Get URL Parameter ---
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        };
+        
+        const initialReferralCode = getUrlParameter('ref');
+
+        // --- App Initialization ---
+        window.onload = () => {
+            lucide.createIcons();
+            setupEventListeners();
+            showMainPage('auth-section');
+            loader.style.display = 'none';
+            onAuthStateChanged(auth, handleAuthStateChange);
+        };
+
+        // --- Authentication ---
+        async function handleAuthStateChange(user) {
+            if (user) {
+                loader.style.display = 'flex';
+                currentUser = user;
+                await fetchUserData();
+                if (userData.isBlocked) {
+                    showAlert("Your account has been blocked.");
+                    await signOut(auth);
+                    loader.style.display = 'none';
+                    return;
+                }
+                
+                // New user logic: Check for initial referral code
+                if (!userData.referredBy && initialReferralCode) {
+                    await applyInitialReferral(initialReferralCode);
+                }
+
+                await fetchAppConfig();
+                await checkNewNotifications();
+                updateUI();
+                showMainPage('app-container');
+                navigateTo('home-page');
+                
+                showInfoPopup();
+                
+                loader.style.display = 'none';
+            } else {
+                currentUser = null;
+                userData = null;
+                showMainPage('auth-section');
+            }
+        }
+
+        // --- Data Fetching ---
+        async function fetchUserData() {
+            if (!currentUser) return;
+            const userRef = doc(db, "users", currentUser.uid);
+            try {
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists()) {
+                    userData = userSnap.data();
+                } else {
+                    const ownReferralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+                    const defaultUserData = {
+                        uid: currentUser.uid, name: currentUser.displayName || currentUser.email.split('@')[0], email: currentUser.email,
+                        balance: 10, // Default 10 Taka bonus
+                        referralCode: ownReferralCode, referredBy: null,
+                        lastNotificationCheck: new Date(),
+                        createdAt: serverTimestamp(),
+                        dailyAdCount: 0, lastAdWatchDate: new Date().toISOString().split('T')[0], isBlocked: false,
+                        hasTelegramBonus: false,
+                        isRefBonusClaimed: false // New field for the user to claim bonus from his referrer
+                    };
+                    await setDoc(userRef, defaultUserData);
+                    userData = defaultUserData;
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                showAlert("Error loading user data.");
+            }
+        }
+        
+        async function fetchAppConfig() {
+            const configRef = doc(db, "config", "main");
+            try {
+                const configSnap = await getDoc(configRef);
+                appConfig = configSnap.exists() ? configSnap.data() : { 
+                    minWithdrawal: 900, 
+                    paymentMethods: ["bKash", "Nagad"], 
+                    dailyAdLimit: 100,
+                };
+            } catch (error) {
+                console.error("Error fetching app config:", error);
+            }
+        }
+        
+        // --- Referral Logic ---
+        async function applyInitialReferral(referrerCode) {
+             const usersRef = collection(db, "users");
+            const q = query(usersRef, where("referralCode", "==", referrerCode));
+            try {
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    // Update current user to link to referrer
+                    const newUserRef = doc(db, "users", currentUser.uid);
+                    await updateDoc(newUserRef, { referredBy: referrerCode });
+                    userData.referredBy = referrerCode;
+                    showAlert(`Referral applied from code: ${referrerCode}. Complete ${REFERRAL_MIN_TASKS} tasks to get your bonus!`);
+                } else {
+                    showAlert("Invalid referral code found in URL.");
+                }
+            } catch(error) {
+                console.error("Error applying initial referral: ", error);
+                showAlert("Error applying referral.");
+            }
+        }
+        
+        // New: Load Referred Users for Refer Page
+        async function loadReferredUsers() {
+            if (!userData) return;
+
+            referredUsersListEl.innerHTML = '<p class="text-center text-gray-500">Loading...</p>';
+            let totalRefs = 0;
+            let commissionReceived = 0;
+            
+            // 1. Fetch users referred by the current user
+            const q = query(collection(db, "users"), where("referredBy", "==", userData.referralCode));
+            try {
+                const querySnapshot = await getDocs(q);
+                totalRefs = querySnapshot.docs.length;
+                referredUsersListEl.innerHTML = ''; 
+
+                if (querySnapshot.empty) {
+                    referredUsersListEl.innerHTML = '<p class="text-center text-gray-500">No referrals found yet.</p>';
+                } else {
+                    querySnapshot.forEach(refDoc => {
+                        const refUser = refDoc.data();
+                        const isCommissionReady = refUser.dailyAdCount >= REFERRAL_MIN_TASKS && refUser.isRefBonusClaimed === false;
+                        const isCommissionPaid = refUser.isRefBonusClaimed === true;
+                        
+                        let statusText = 'Pending (0 ads)';
+                        let statusColor = 'text-yellow-400';
+                        
+                        if (refUser.dailyAdCount > 0) {
+                            statusText = `Progress: ${refUser.dailyAdCount}/${REFERRAL_MIN_TASKS} ads seen`;
+                        }
+                        
+                        if (isCommissionReady) {
+                            statusText = `Ready to Claim! (Bonus: ${REFERRAL_BONUS} BDT)`;
+                            statusColor = 'text-green-400';
+                        }
+                        if (isCommissionPaid) {
+                            statusText = `Bonus Paid! (${REFERRAL_BONUS} BDT)`;
+                            statusColor = 'text-green-500';
+                            commissionReceived++;
+                        }
+                        
+                        // Check if the user is ready to claim and hasn't claimed yet
+                        const claimButton = isCommissionReady 
+                            ? `<button onclick="claimReferralBonus('${refDoc.id}')" class="btn-accent px-3 py-1 text-sm mt-2">Claim Bonus</button>`
+                            : '';
+                            
+                        // Show name and email
+                        referredUsersListEl.innerHTML += `
+                            <div class="card-bg p-3 rounded-lg border border-gray-700">
+                                <p class="font-bold truncate">${refUser.name || refUser.email}</p>
+                                <p class="text-sm text-gray-400 mb-1">${refUser.email}</p>
+                                <p class="text-sm ${statusColor}">${statusText}</p>
+                                ${claimButton}
+                            </div>
+                        `;
+                    });
+                }
+                
+                totalReferralsEl.textContent = totalRefs;
+                commissionEarnedCountEl.textContent = commissionReceived;
+
+            } catch (error) {
+                console.error("Error fetching referred users: ", error);
+                referredUsersListEl.innerHTML = '<p class="text-center text-red-400">Error loading referral data.</p>';
+            }
+        }
+        
+        // New: Function for the referrer to claim the bonus
+        window.claimReferralBonus = async function(referredUserId) {
+            loader.style.display = 'flex';
+            try {
+                const referredUserRef = doc(db, "users", referredUserId);
+                const referrerRef = doc(db, "users", currentUser.uid);
+                
+                const referredDoc = await getDoc(referredUserRef);
+                const referredData = referredDoc.data();
+                
+                if (referredData.dailyAdCount < REFERRAL_MIN_TASKS) {
+                     return showAlert(`User hasn't completed ${REFERRAL_MIN_TASKS} tasks yet.`);
+                }
+                if (referredData.isRefBonusClaimed === true) {
+                    return showAlert("Bonus already claimed for this user.");
+                }
+
+                // 1. Pay bonus to the referrer (current user)
+                const newBalance = (userData.balance || 0) + REFERRAL_BONUS;
+                await updateDoc(referrerRef, { balance: newBalance });
+                userData.balance = newBalance; // Update local state
+                
+                // 2. Mark the referred user's bonus as claimed
+                await updateDoc(referredUserRef, { isRefBonusClaimed: true });
+
+                showAlert(`${REFERRAL_BONUS} BDT referral bonus claimed successfully!`);
+                updateUI();
+                await loadReferredUsers(); // Refresh the list
+
+            } catch(error) {
+                console.error("Error claiming referral bonus: ", error);
+                showAlert("Error claiming bonus. Please try again.");
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+        
+        // --- UI Updates ---
+        function updateUI() {
+            if (!userData) return;
+            const balance = userData.balance || 0;
+            coinBalanceEl.textContent = `${balance} BDT`;
+            walletCoinBalanceEl.textContent = `${balance} BDT`;
+            
+            profileNameEl.textContent = userData.name || 'No Name';
+            profileEmailEl.textContent = userData.email || 'No Email';
+            
+            // New: Generate and display the full referral link
+            // Assuming the app is hosted at the current location and uses 'ref' query
+            referralLink = `${window.location.origin}${window.location.pathname}?ref=${userData.referralCode}`;
+            referralLinkDisplayEl.textContent = referralLink;
+            
+            minWithdrawalInfoEl.textContent = `${appConfig.minWithdrawal || 900} BDT`;
+            
+            withdrawMethodSelect.innerHTML = '';
+            (appConfig.paymentMethods || ["bKash", "Nagad"]).forEach(method => {
+                const option = document.createElement('option');
+                option.value = method;
+                option.textContent = method;
+                withdrawMethodSelect.appendChild(option);
+            });
+            updateDynamicPaymentFields();
+            updateTaskStatsUI();
+        }
+        
+        // --- Navigation ---
+        function navigateTo(pageId) {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active', 'text-accent');
+                if (link.dataset.page === pageId) link.classList.add('active', 'text-accent');
+            });
+            
+            if (pageId === 'profile-page') {
+                updateTaskStatsUI();
+            } else if (pageId === 'refer-page') { // New: Load referral data when navigating to refer page
+                loadReferredUsers();
+            } else if (pageId === 'wallet-page') {
+                loadWithdrawalHistory();
+            }
+            
+            lucide.createIcons();
+        }
+        window.navigateTo = navigateTo;
+        
+        // --- Event Listeners (Modified) ---
+        function setupEventListeners() {
+            // [Existing auth and nav listeners]
+            document.getElementById('show-signup').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('login-view').classList.add('hidden'); document.getElementById('signup-view').classList.remove('hidden'); });
+            document.getElementById('show-login').addEventListener('click', (e) => { e.preventDefault(); document.getElementById('signup-view').classList.add('hidden'); document.getElementById('login-view').classList.remove('hidden'); });
+            document.getElementById('signup-btn').addEventListener('click', handleSignup);
+            document.getElementById('login-btn').addEventListener('click', handleLogin);
+            document.getElementById('logout-btn').addEventListener('click', handleLogout);
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigateTo(link.dataset.page);
+                });
+            });
+            
+            document.getElementById('notification-bell').addEventListener('click', () => { navigateTo('notifications-page'); loadNotifications(); });
+            document.getElementById('copy-link-btn').addEventListener('click', copyReferralLink); // Changed to link
+            document.getElementById('share-link-btn').addEventListener('click', shareReferralLink); // Changed to link
+            document.getElementById('withdraw-btn').addEventListener('click', handleWithdrawal);
+            document.getElementById('home-withdraw-btn').addEventListener('click', () => navigateTo('wallet-page'));
+            // document.getElementById('apply-referral-btn') removed
+            withdrawMethodSelect.addEventListener('change', updateDynamicPaymentFields);
+            
+            document.getElementById('view-100-tasks-btn').addEventListener('click', () => {
+                generateTaskGrid();
+                navigateTo('task-list-page');
+            });
+            
+            document.getElementById('info-popup-close-btn').addEventListener('click', () => {
+                document.getElementById('info-popup').classList.add('hidden');
+            });
+        }
+        
+        // --- Auth Handlers ---
+        async function handleSignup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            if (!name || !email || !password) return showAlert("Please fill all fields.");
+            loader.style.display = 'flex';
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const userRef = doc(db, "users", userCredential.user.uid);
+                await setDoc(userRef, { 
+                    uid: userCredential.user.uid,
+                    email: email,
+                    name: name, 
+                    createdAt: serverTimestamp(),
+                    balance: 10, 
+                    referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(), 
+                    referredBy: initialReferralCode || null, // Capture initial referral code from URL
+                    lastNotificationCheck: new Date(),
+                    dailyAdCount: 0, 
+                    lastAdWatchDate: new Date().toISOString().split('T')[0], 
+                    isBlocked: false,
+                    hasTelegramBonus: false,
+                    isRefBonusClaimed: false // New field for the user to claim bonus from his referrer
+                }, { merge: true });
+                
+                // If referred by someone, give referrer the potential for bonus
+                if (initialReferralCode) {
+                    await checkAndApplyReferrerBonus(initialReferralCode);
+                }
+                
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        // --- Referral Share Functions (Modified) ---
+        function copyReferralLink() {
+            navigator.clipboard.writeText(referralLink).then(() => {
+                showAlert("Referral link copied!");
+            }).catch(err => {
+                showAlert("Failed to copy link.");
+            });
+        }
+        
+        function shareReferralLink() {
+            const text = `Join income Korbo and earn money! Use my link to get a bonus after completing 12 tasks: ${referralLink}`;
+            if (navigator.share) {
+                navigator.share({ title: 'Join income Korbo!', text: text, url: referralLink })
+                    .catch((error) => console.error("Share failed:", error));
+            } else {
+                copyReferralLink();
+                showAlert("Share feature is not available. Referral link has been copied instead!");
+            }
+        }
+        
+        // --- Ad/Reward Claim Function (Modified to include conditional bonus for referred user) ---
+        window.claimReward = async function(taskNumber) {
+            const today = new Date().toISOString().split('T')[0];
+            const userRef = doc(db, "users", currentUser.uid);
+
+            if (userData.lastAdWatchDate !== today) {
+                await updateDoc(userRef, { dailyAdCount: 0, lastAdWatchDate: today });
+                userData.dailyAdCount = 0;
+                userData.lastAdWatchDate = today;
+            }
+
+            if (userData.dailyAdCount >= (appConfig.dailyAdLimit || 100)) {
+                return showAlert("You have completed all tasks for today.");
+            }
+            
+            if(taskNumber !== (userData.dailyAdCount + 1)) {
+                return showAlert(`Please complete Task #${userData.dailyAdCount + 1} first.`);
+            }
+
+            if (typeof window.show_10108732 !== 'function') {
+                return showAlert("Ad service is currently unavailable. Please try again later.");
+            }
+            
+            loader.style.display = 'flex';
+            try {
+                await window.show_10108732(); 
+                
+                const newCount = (userData.dailyAdCount || 0) + 1;
+                await updateDoc(userRef, { dailyAdCount: newCount });
+                userData.dailyAdCount = newCount;
+                
+                // MODIFIED: Reward 1 Taka
+                const rewardAmount = 1;
+                
+                if (rewardAmount > 0) {
+                    await updateBalance(rewardAmount);
+                    showAlert(`Task #${taskNumber} Complete! You have won ${rewardAmount} BDT.`);
+                }
+                
+                // New: Check for the referred user's bonus eligibility after an ad is completed
+                if (userData.referredBy && newCount === REFERRAL_MIN_TASKS) {
+                    await grantReferredUserBonus();
+                }
+                
+                // New: If the referred user completes 12 tasks, they get a bonus.
+                if (userData.referredBy && newCount === REFERRAL_MIN_TASKS) {
+                    await grantReferredUserBonus();
+                }
+                
+                // New: If a user completes 12 tasks, we check if their referrer can claim a bonus.
+                if (userData.referredBy && newCount >= REFERRAL_MIN_TASKS) {
+                     // Note: Referrer bonus is *claimed* by the referrer in the 'Refer' page.
+                     // The completion of 12 tasks simply makes the bonus 'Ready to Claim' for the referrer.
+                     // The user (referee) gets their bonus in grantReferredUserBonus().
+                }
+                
+                generateTaskGrid(); 
+                updateTaskStatsUI();
+
+            } catch(e) {
+                console.error("Ad error:", e);
+                showAlert('Could not show ad. Please try again later.');
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+        
+        // New: Grant the referred user their conditional bonus
+        async function grantReferredUserBonus() {
+            if (userData.isRefBonusClaimed) return; // Already claimed
+
+            const userRef = doc(db, "users", currentUser.uid);
+            
+            // 1. Pay bonus to the referee (current user)
+            const newBalance = (userData.balance || 0) + REFERRAL_BONUS;
+            await updateDoc(userRef, { balance: newBalance, isRefBonusClaimed: true });
+            userData.balance = newBalance; 
+            userData.isRefBonusClaimed = true;
+
+            showAlert(`${REFERRAL_BONUS} BDT bonus received for completing ${REFERRAL_MIN_TASKS} tasks!`);
+            updateUI();
+        }
+        
+        // --- Remaining Unmodified Functions ---
+        
+        async function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            if (!email || !password) return showAlert("Please enter email and password.");
+            loader.style.display = 'flex';
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                showAlert(error.message);
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+        
+        async function handleLogout() { await signOut(auth); }
+
+        async function checkNewNotifications() {
+            const lastCheck = userData.lastNotificationCheck;
+            if (!lastCheck || typeof lastCheck.seconds === 'undefined') {
+                return;
+            }
+            const q = query(collection(db, "notifications"), where("createdAt", ">", lastCheck), limit(1));
+            const querySnapshot = await getDocs(q);
+            notificationDot.style.display = querySnapshot.empty ? 'none' : 'block';
+        }
+
+        async function loadNotifications() {
+            // [Notification loading logic]
+            const listEl = document.getElementById('notifications-list');
+            listEl.innerHTML = '<p class="text-gray-400">Loading...</p>';
+            notificationDot.style.display = 'none';
+            const q = query(collection(db, "notifications"), orderBy("createdAt", "desc"));
+            try {
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    listEl.innerHTML = '<p class="text-gray-400 text-center">No notifications available.</p>';
+                    return;
+                }
+                listEl.innerHTML = '';
+                querySnapshot.forEach(doc => {
+                    const msg = doc.data();
+                    const date = msg.createdAt ? msg.createdAt.toDate().toLocaleDateString() : 'N/A';
+                    listEl.innerHTML += `<div class="card-bg p-4 rounded-lg"><div class="flex justify-between items-center mb-1"><h3 class="font-bold">${msg.title}</h3><p class="text-xs text-gray-400">${date}</p></div><p class="text-sm text-gray-300">${msg.message}</p></div>`;
+                });
+                await updateDoc(doc(db, "users", currentUser.uid), { lastNotificationCheck: serverTimestamp() });
+            } catch (error) {
+                console.error("Error loading notifications:", error);
+                listEl.innerHTML = '<p class="text-red-400">Error loading notifications.</p>';
+            }
+        }
+        
+        async function loadWithdrawalHistory() {
+            // [Withdrawal history logic]
+            const historyList = document.getElementById('withdrawal-history-list');
+            historyList.innerHTML = '<p class="text-gray-400">Loading history...</p>';
+            const q = query(collection(db, "withdrawals"), where("userId", "==", currentUser.uid), orderBy("requestedAt", "desc"));
+            try {
+                const querySnapshot = await getDocs(q);
+                if (querySnapshot.empty) {
+                    historyList.innerHTML = '<p class="text-gray-400 text-center">You haven\'t made any withdrawals yet.</p>';
+                    return;
+                }
+                historyList.innerHTML = '';
+                querySnapshot.forEach(doc => {
+                    const request = doc.data();
+                    const status = request.status;
+                    let statusColor = 'text-yellow-400';
+                    if (status === 'approved') statusColor = 'text-green-400';
+                    else if (status === 'rejected') statusColor = 'text-red-400';
+                    const date = request.requestedAt ? request.requestedAt.toDate().toLocaleDateString() : 'N/A';
+                    historyList.innerHTML += `<div class="card-bg p-3 rounded-lg flex items-center justify-between"><div><p class="font-semibold">${request.amount} BDT - ${request.method}</p><p class="text-xs text-gray-400">${date}</p></div><p class="font-bold ${statusColor} capitalize">${status}</p></div>`;
+                });
+            } catch (error) {
+                console.error("Error fetching withdrawal history: ", error);
+                historyList.innerHTML = '<p class="text-red-400 text-center">Error loading history.</p>';
+            }
+        }
+        
+        async function updateBalance(amount) {
+            if (!currentUser) return;
+            const newBalance = (userData.balance || 0) + amount;
+            const userRef = doc(db, "users", currentUser.uid);
+            await updateDoc(userRef, { balance: newBalance });
+            userData.balance = newBalance;
+            updateUI();
+        }
+
+        async function handleWithdrawal() {
+             // [Withdrawal logic]
+            const amount = parseInt(document.getElementById('withdraw-amount').value);
+            const method = document.getElementById('withdraw-method').value;
+            const paymentDetailInput = document.getElementById('payment-detail-input');
+            const paymentDetail = paymentDetailInput ? paymentDetailInput.value.trim() : '';
+            const minWithdrawal = appConfig.minWithdrawal || 900;
+
+            if (!amount || amount <= 0) return showAlert("Please enter a valid amount.");
+            if (amount < minWithdrawal) return showAlert(`Minimum withdrawal is ${minWithdrawal} BDT.`);
+            if (amount > userData.balance) return showAlert("Insufficient balance.");
+            if (!paymentDetail) return showAlert(`Please enter your ${method} number.`);
+
+            loader.style.display = 'flex';
+            try {
+                await updateBalance(-amount);
+                await addDoc(collection(db, "withdrawals"), {
+                    userId: currentUser.uid, userName: userData.name, userEmail: userData.email,
+                    amount: amount, method: method, paymentDetail: paymentDetail, status: "pending", requestedAt: serverTimestamp()
+                });
+                showAlert("Withdrawal request submitted successfully!");
+                document.getElementById('withdraw-amount').value = '';
+                paymentDetailInput.value = '';
+                loadWithdrawalHistory();
+            } catch (error) {
+                showAlert("Error submitting request: " + error.message);
+                await updateBalance(amount);
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+        
+        window.joinTelegramBonus = async function() {
+            // [Telegram bonus logic]
+            const telegramLink = 'https://t.me/+VTrud33gaL4wZmQ1';
+            
+            if (userData.hasTelegramBonus) {
+                showAlert("You have already received this bonus. Opening Telegram...");
+                window.open(telegramLink, '_blank');
+                return;
+            }
+            
+            loader.style.display = 'flex';
+            try {
+                await updateBalance(10);
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, { hasTelegramBonus: true });
+                userData.hasTelegramBonus = true;
+                
+                showAlert("Bonus of 10 BDT added! Opening Telegram...");
+                window.open(telegramLink, '_blank');
+                
+            } catch (error) {
+                console.error("Error giving Telegram bonus: ", error);
+                showAlert("Error adding bonus. Please try again.");
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        function generateTaskGrid() {
+            // [Task grid generation logic]
+            const taskGrid = document.getElementById('task-grid');
+            const totalTasks = appConfig.dailyAdLimit || 100;
+            const completedTasks = userData.dailyAdCount || 0;
+            
+            document.getElementById('tasks-left-count').textContent = totalTasks - completedTasks;
+            taskGrid.innerHTML = ''; 
+
+            for (let i = 1; i <= totalTasks; i++) {
+                const taskEl = document.createElement('div');
+                taskEl.classList.add('p-3', 'rounded-lg', 'text-center', 'font-bold', 'cursor-pointer', 'transition-all', 'flex', 'flex-col', 'items-center', 'justify-center', 'aspect-square');
+                
+                let icon = 'lock';
+                
+                if (i <= completedTasks) {
+                    taskEl.classList.add('bg-gray-700', 'text-gray-400', 'line-through');
+                    taskEl.style.cursor = 'not-allowed';
+                    icon = 'check-circle';
+                } else if (i === completedTasks + 1) {
+                    taskEl.classList.add('bg-gradient-to-br', 'from-purple-500', 'to-pink-500', 'text-white', 'animate-pulse');
+                    taskEl.onclick = () => claimReward(i);
+                    icon = 'play-circle';
+                } else {
+                    taskEl.classList.add('card-bg', 'text-gray-500');
+                    taskEl.style.cursor = 'not-allowed';
+                    icon = 'lock';
+                }
+                
+                taskEl.innerHTML = `<i data-lucide="${icon}" class="w-6 h-6 mb-1"></i><span>${i}</span>`;
+                taskGrid.appendChild(taskEl);
+            }
+            lucide.createIcons();
+            updateTaskStatsUI();
+        }
+        
+        function showMainPage(pageId) {
+            document.querySelectorAll('.main-page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        function updateDynamicPaymentFields() {
+            const selectedMethod = withdrawMethodSelect.value.toLowerCase();
+            let placeholder = "Enter Details";
+            if (selectedMethod.includes('bkash')) {
+                placeholder = "Enter your bKash Number";
+            } else if (selectedMethod.includes('nagad')) {
+                placeholder = "Enter your Nagad Number";
+            }
+            paymentDetailsContainer.innerHTML = `<input id="payment-detail-input" type="text" placeholder="${placeholder}" class="w-full p-3 rounded-lg input-field">`;
+        }
+        
+        function updateTaskStatsUI() {
+            if (!userData || !appConfig) return; 
+            const today = new Date().toISOString().split('T')[0];
+            let completedTasks = 0;
+            
+            if (userData.lastAdWatchDate === today) {
+                completedTasks = userData.dailyAdCount || 0;
+            } else {
+                completedTasks = 0;
+            }
+            
+            const totalTasks = appConfig.dailyAdLimit || 100;
+            const remainingTasks = Math.max(0, totalTasks - completedTasks);
+            
+            if (profileTasksCompletedEl) {
+                profileTasksCompletedEl.textContent = completedTasks;
+            }
+            if (profileTasksRemainingEl) {
+                profileTasksRemainingEl.textContent = remainingTasks;
+            }
+        }
+        
+        function showInfoPopup() {
+            document.getElementById('info-popup').classList.remove('hidden');
+        }
+
+        function showAlert(message) {
+            document.getElementById('alert-message').textContent = message;
+            document.getElementById('custom-alert').classList.remove('hidden');
+            document.getElementById('alert-ok-btn').onclick = () => {
+                document.getElementById('custom-alert').classList.add('hidden');
+            };
+        }
+        window.showAlert = showAlert;
+
+    </script>
+</body>
+</html>
